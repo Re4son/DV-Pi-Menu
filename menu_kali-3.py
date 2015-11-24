@@ -135,10 +135,12 @@ def button(number):
     if number == 3:
         # VNC Server
         if check_vnc():
-            run_cmd("/usr/bin/sudo -u pi /usr/bin/vncserver -kill :1")
+##            run_cmd("/usr/bin/sudo -u pi /usr/bin/vncserver -kill :1")
+            run_cmd("/usr/bin/vncserver -kill :1")
             make_button("  VNC-Server",  30, 180, 55, 210, tron_light)
         else:
-            run_cmd("/usr/bin/sudo -u pi /usr/bin/vncserver :1")
+##            run_cmd("/usr/bin/sudo -u pi /usr/bin/vncserver :1")
+            run_cmd("/usr/bin/vncserver :1")
             make_button("  VNC-Server",  30, 180, 55, 210, green)
         return
 
@@ -159,7 +161,7 @@ def button(number):
     if number == 6:
         # Next page
         pygame.quit()
-        page=os.environ["MENUDIR"] + "menu_kali-9.py"
+        page=os.environ["MENUDIR"] + "menu_kali-4.py"
         os.execvp("python", ["python", page])
         sys.exit()
 

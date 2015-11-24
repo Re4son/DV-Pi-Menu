@@ -64,14 +64,16 @@ def button(number):
         # X TFT
         pygame.quit()
         ## Requires "Anybody" in dpkg-reconfigure x11-common if we have scrolled pages previously
-        run_cmd("/usr/bin/sudo -u pi FRAMEBUFFER=/dev/fb1 startx")
+##        run_cmd("/usr/bin/sudo -u pi FRAMEBUFFER=/dev/fb1 startx")
+        run_cmd("/usr/bin/sudo FRAMEBUFFER=/dev/fb1 startx")
         os.execv(__file__, sys.argv)        
 
     if number == 2:
         # X HDMI
         pygame.quit()
         ## Requires "Anybody" in dpkg-reconfigure x11-common if we have scrolled pages previously
-        run_cmd("/usr/bin/sudo -u pi FRAMEBUFFER=/dev/fb0 startx")
+##        run_cmd("/usr/bin/sudo -u pi FRAMEBUFFER=/dev/fb0 startx")
+        run_cmd("/usr/bin/sudo FRAMEBUFFER=/dev/fb0 startx")
         os.execv(__file__, sys.argv)        
 
 
