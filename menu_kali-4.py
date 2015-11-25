@@ -38,8 +38,8 @@ def on_touch():
     if 260 <= touch_pos[0] <= 470 and 105 <= touch_pos[1] <=160:
             button(2)
     # button 3 event
-##    if 30 <= touch_pos[0] <= 240 and 180 <= touch_pos[1] <=235:
-##            button(3)
+    if 30 <= touch_pos[0] <= 240 and 180 <= touch_pos[1] <=235:
+            button(3)
     # button 4 event
 ##    if 260 <= touch_pos[0] <= 470 and 180 <= touch_pos[1] <=235:
 ##            button(4)
@@ -117,7 +117,7 @@ def check_vnc():
 # Define each button press action
 def button(number):
     if number == 1:
-        # Apache
+        # MySQL
 	if toggle_service("mysql"):
 	    make_button("      MySQL", 30, 105, 55, 210, green)
 	else:
@@ -125,7 +125,7 @@ def button(number):
 	return
 
     if number == 2:
-        # Pure-ftpd
+        # snortbarn
 	if toggle_service("snortbarn"):
 	    make_button("       Snort", 260, 105, 55, 210, green)
 	else:
@@ -133,16 +133,12 @@ def button(number):
 	return
 
     if number == 3:
-        # VNC Server
-        if check_vnc():
-##            run_cmd("/usr/bin/sudo -u pi /usr/bin/vncserver -kill :1")
-            run_cmd("/usr/bin/vncserver -kill :1")
-            make_button("  VNC-Server",  30, 180, 55, 210, tron_light)
-        else:
-##            run_cmd("/usr/bin/sudo -u pi /usr/bin/vncserver :1")
-            run_cmd("/usr/bin/vncserver :1")
-            make_button("  VNC-Server",  30, 180, 55, 210, green)
-        return
+        # Pulledpork
+	pygame.quit()
+	cmd="/usr/bin/sudo /bin/bash " + os.environ["MENUDIR"] + "pulledpork.sh"
+	call(cmd, shell=True)
+	##run_cmd(cmd)
+	os.execv(__file__, sys.argv)
 
     if number == 4:
         # msfconsole
@@ -218,10 +214,7 @@ if check_service("snortbarn"):
 else:
     make_button("       Snort", 260, 105, 55, 210, tron_light)
 # Third Row buttons 3 and 4
-##if check_vnc():
-##    make_button("  VNC-Server",  30, 180, 55, 210, green)
-##else:
-##    make_button("  VNC-Server", 30, 180, 55, 210, tron_light)
+make_button("   PulledPork", 30, 180, 55, 210, tron_light)
 ##make_button("    Metasploit ", 260, 180, 55, 210, tron_light)
 # Fourth Row Buttons
 make_button("         <<<", 30, 255, 55, 210, tron_light)

@@ -13,37 +13,16 @@ pygame.display.init()
 pygame.mouse.set_visible(0)
 
 # Initialise GPIO
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.OUT)
 
 
-def run_cmd(cmd):
-    process = Popen(cmd.split(), stdout=PIPE)
-    output = process.communicate()[0]
-    return output
-
-# Turn screen on
-def screen_on():
-        pygame.quit()
-	backlight = GPIO.PWM(18, 1023)
-	backlight.start(100)
-	GPIO.cleanup()
-        page=os.environ["MENUDIR"] + "menu_kali-1.py"
-        os.execvp("python", ["python", page])
-
-
-# Turn screen off
-def screen_off():
-	backlight = GPIO.PWM(18, 0.1)
-	backlight.start(0)
-
-
 #While loop to manage touch screen inputs
-screen_off()
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            screen_on()
+            sys.exit()
 
         #ensure there is always a safe way to end the program if the touch screen fails
         if event.type == KEYDOWN:
