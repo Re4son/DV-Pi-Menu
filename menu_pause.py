@@ -14,8 +14,6 @@ pygame.mouse.set_visible(0)
 
 # Initialise GPIO
 GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.OUT)
 
 
 #While loop to manage touch screen inputs
