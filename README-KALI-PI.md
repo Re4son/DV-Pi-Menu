@@ -70,7 +70,7 @@ Press the button again to stop the service.
 
 ### menu_kali-4.py
 
-This script allows us to stop and start some more services:
+This script allows us to stop and start MySQL & Snort and allows to update the Snort rules via PulledPork:
 ![menu_kali-4.py](http://whitedome.com.au/re4son/wp-content/uploads/2015/11/kali-pi_10-1-menu_kali-4.png)
 
 ### menu_kali-9.py
