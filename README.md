@@ -66,7 +66,12 @@ The button changes to green when the service is running:
 ![running service](http://whitedome.com.au/re4son/wp-content/uploads/2015/11/kali-pi_09-services-on.png)
 Press the button again to stop the service.
 
-### menu_kali-3.py
+### menu_kali-4.py
+
+This script allows us to stop and start some more services:
+![menu_kali-4.py](http://whitedome.com.au/re4son/wp-content/uploads/2015/11/kali-pi_10-1-menu_kali-9.png)
+
+### menu_kali-9.py
 The last script displays some health information:
 
 ![menu_kali-9](http://whitedome.com.au/re4son/wp-content/uploads/2015/11/kali-pi_10-menu_kali-9.png)
