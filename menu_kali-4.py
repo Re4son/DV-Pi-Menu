@@ -41,8 +41,8 @@ def on_touch():
     if 30 <= touch_pos[0] <= 240 and 180 <= touch_pos[1] <=235:
             button(3)
     # button 4 event
-##    if 260 <= touch_pos[0] <= 470 and 180 <= touch_pos[1] <=235:
-##            button(4)
+    if 260 <= touch_pos[0] <= 470 and 180 <= touch_pos[1] <=235:
+            button(4)
     # button 5 event
     if 30 <= touch_pos[0] <= 240 and 255 <= touch_pos[1] <=310:
             button(5)
@@ -108,6 +108,18 @@ def toggle_service(srvc):
 	run_cmd(start)
         return True
 
+def toggle_openvas():
+    check = "/usr/sbin/service openvas-manager status"
+    start = "/usr/bin/openvas-start"
+    stop = "/usr/bin/openvas-stop"
+    status = run_cmd(check)
+    if ("is running" in status) or ("active (running)") in status:
+        run_cmd(stop)
+        return False
+    else:
+	run_cmd(start)
+        return True
+
 def check_vnc():
     if 'vnc :1' in commands.getoutput('/bin/ps -ef'):
         return True
@@ -120,16 +132,20 @@ def button(number):
         # MySQL
 	if toggle_service("mysql"):
 	    make_button("      MySQL", 30, 105, 55, 210, green)
+	    pygame.display.update()
 	else:
 	    make_button("      MySQL", 30, 105, 55, 210, tron_light)
+	    pygame.display.update()
 	return
 
     if number == 2:
         # snortbarn
 	if toggle_service("snortbarn"):
 	    make_button("       Snort", 260, 105, 55, 210, green)
+	    pygame.display.update()
 	else:
 	    make_button("       Snort", 260, 105, 55, 210, tron_light)
+	    pygame.display.update()
 	return
 
     if number == 3:
@@ -141,10 +157,15 @@ def button(number):
 	os.execv(__file__, sys.argv)
 
     if number == 4:
-        # msfconsole
-        pygame.quit()
-        call("/usr/bin/msfconsole", shell=True)
-	os.execv(__file__, sys.argv)
+        # openvas
+	if toggle_openvas():
+	    make_button("    OpenVAS", 260, 180, 55, 210, green)
+	    pygame.display.update()
+
+	else:
+	    make_button("    OpenVAS", 260, 180, 55, 210, tron_light)
+	    pygame.display.update()
+	return
 
     if number == 5:
         # Previous page
@@ -215,7 +236,10 @@ else:
     make_button("       Snort", 260, 105, 55, 210, tron_light)
 # Third Row buttons 3 and 4
 make_button("   PulledPork", 30, 180, 55, 210, tron_light)
-##make_button("    Metasploit ", 260, 180, 55, 210, tron_light)
+if check_service("openvas-manager"):
+    make_button("    OpenVAS", 260, 180, 55, 210, green)
+else:
+    make_button("    OpenVAS", 260, 180, 55, 210, tron_light)
 # Fourth Row Buttons
 make_button("         <<<", 30, 255, 55, 210, tron_light)
 make_button("         >>>", 260, 255, 55, 210, tron_light)
