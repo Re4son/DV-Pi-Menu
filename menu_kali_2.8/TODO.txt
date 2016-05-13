@@ -1,0 +1,6 @@
+When running Sticky Finger's Kali-Pi on a 2.8" screen, just replace the manu_kali-*.py files in the root directory with these.
+The coordinates in these programs have been optimised for a 2.8" screen.
+Many thanks to JPearn for making this happen.
+
+Have fun,
+Re4son
