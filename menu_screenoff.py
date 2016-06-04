@@ -28,6 +28,7 @@ def screen_on():
 	backlight = GPIO.PWM(18, 1023)
 	backlight.start(100)
 	GPIO.cleanup()
+        process = subprocess.call("setterm -term linux -back default -fore white -clear all", shell=True)
         page=os.environ["MENUDIR"] + "menu_kali-1.py"
         os.execvp("python", ["python", page])
 
@@ -36,6 +37,7 @@ def screen_on():
 def screen_off():
 	backlight = GPIO.PWM(18, 0.1)
 	backlight.start(0)
+        process = subprocess.call("setterm -term linux -back black -fore black -clear all", shell=True)
 
 
 #While loop to manage touch screen inputs

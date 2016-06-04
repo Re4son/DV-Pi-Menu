@@ -66,7 +66,7 @@ def button(number):
         ## Requires "Anybody" in dpkg-reconfigure x11-common if we have scrolled pages previously
 ##        run_cmd("/usr/bin/sudo -u pi FRAMEBUFFER=/dev/fb1 startx")
         run_cmd("/usr/bin/sudo FRAMEBUFFER=/dev/fb1 startx")
-        os.execv(__file__, sys.argv)        
+        os.execv(__file__, sys.argv)
 
     if number == 2:
         # X HDMI
@@ -74,7 +74,7 @@ def button(number):
         ## Requires "Anybody" in dpkg-reconfigure x11-common if we have scrolled pages previously
 ##        run_cmd("/usr/bin/sudo -u pi FRAMEBUFFER=/dev/fb0 startx")
         run_cmd("/usr/bin/sudo FRAMEBUFFER=/dev/fb0 startx")
-        os.execv(__file__, sys.argv)        
+        os.execv(__file__, sys.argv)
 
 
     if number == 3:
@@ -86,11 +86,12 @@ def button(number):
         # htop
         pygame.quit()
 	process = subprocess.call("/usr/bin/htop", shell=True)
-        os.execv(__file__, sys.argv)        
+        os.execv(__file__, sys.argv)
 
     if number == 5:
         # next page
         pygame.quit()
+	##process = subprocess.call("setterm -term linux -back black -fore black -clear all", shell=True)
         ##startx only works when we don't use subprocess here, don't know why
         page=os.environ["MENUDIR"] + "menu_screenoff.py"
         os.execvp("python", ["python", page])
@@ -129,7 +130,7 @@ tron_inverse = tron_whi
 # Tron theme blue
 ##tron_regular = tron_blu
 ##tron_light   = tron_whi
-##tron_inverse = tron_yel 
+##tron_inverse = tron_yel
 
 # Set up the base menu you can customize your menu with the colors above
 
