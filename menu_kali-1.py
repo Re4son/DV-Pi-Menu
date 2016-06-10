@@ -17,7 +17,7 @@ def make_button(text, xpo, ypo, height, width, colour):
     pygame.draw.rect(screen, tron_regular, (xpo-10,ypo-10,width,height),3)
     pygame.draw.rect(screen, tron_light, (xpo-9,ypo-9,width-1,height-1),1)
     pygame.draw.rect(screen, tron_regular, (xpo-8,ypo-8,width-2,height-2),1)
-    font=pygame.font.Font(None,42)
+    font=pygame.font.Font(None,30)
     label=font.render(str(text), 1, (colour))
     screen.blit(label,(xpo,ypo))
 
@@ -34,22 +34,22 @@ def on_touch():
     touch_pos = (pygame.mouse.get_pos() [0], pygame.mouse.get_pos() [1])
     #  x_min                 x_max   y_min                y_max
     # button 1 event
-    if 30 <= touch_pos[0] <= 240 and 105 <= touch_pos[1] <=160:
+    if 20 <= touch_pos[0] <= 150 and 65 <= touch_pos[1] <=110:
             button(1)
     # button 2 event
-    if 260 <= touch_pos[0] <= 470 and 105 <= touch_pos[1] <=160:
+    if 170 <= touch_pos[0] <= 300 and 65 <= touch_pos[1] <=110:
             button(2)
     # button 3 event
-    if 30 <= touch_pos[0] <= 240 and 180 <= touch_pos[1] <=235:
+    if 20 <= touch_pos[0] <= 150 and 115 <= touch_pos[1] <=160:
             button(3)
     # button 4 event
-    if 260 <= touch_pos[0] <= 470 and 180 <= touch_pos[1] <=235:
+    if 170 <= touch_pos[0] <= 300 and 115 <= touch_pos[1] <=160:
             button(4)
     # button 5 event
-    if 30 <= touch_pos[0] <= 240 and 255 <= touch_pos[1] <=310:
+    if 20 <= touch_pos[0] <= 150 and 165 <= touch_pos[1] <=210:
             button(5)
     # button 6 event
-    if 260 <= touch_pos[0] <= 470 and 255 <= touch_pos[1] <=310:
+    if 170 <= touch_pos[0] <= 300 and 165 <= touch_pos[1] <=210:
             button(6)
 
 def run_cmd(cmd):
@@ -66,7 +66,7 @@ def button(number):
         ## Requires "Anybody" in dpkg-reconfigure x11-common if we have scrolled pages previously
 ##        run_cmd("/usr/bin/sudo -u pi FRAMEBUFFER=/dev/fb1 startx")
         run_cmd("/usr/bin/sudo FRAMEBUFFER=/dev/fb1 startx")
-        os.execv(__file__, sys.argv)
+        os.execv(__file__, sys.argv)        
 
     if number == 2:
         # X HDMI
@@ -74,7 +74,7 @@ def button(number):
         ## Requires "Anybody" in dpkg-reconfigure x11-common if we have scrolled pages previously
 ##        run_cmd("/usr/bin/sudo -u pi FRAMEBUFFER=/dev/fb0 startx")
         run_cmd("/usr/bin/sudo FRAMEBUFFER=/dev/fb0 startx")
-        os.execv(__file__, sys.argv)
+        os.execv(__file__, sys.argv)        
 
 
     if number == 3:
@@ -86,12 +86,11 @@ def button(number):
         # htop
         pygame.quit()
 	process = subprocess.call("/usr/bin/htop", shell=True)
-        os.execv(__file__, sys.argv)
+        os.execv(__file__, sys.argv)        
 
     if number == 5:
         # next page
         pygame.quit()
-	##process = subprocess.call("setterm -term linux -back black -fore black -clear all", shell=True)
         ##startx only works when we don't use subprocess here, don't know why
         page=os.environ["MENUDIR"] + "menu_screenoff.py"
         os.execvp("python", ["python", page])
@@ -130,35 +129,35 @@ tron_inverse = tron_whi
 # Tron theme blue
 ##tron_regular = tron_blu
 ##tron_light   = tron_whi
-##tron_inverse = tron_yel
+##tron_inverse = tron_yel 
 
 # Set up the base menu you can customize your menu with the colors above
 
 #set size of the screen
-size = width, height = 480, 320
+size = width, height = 320, 240
 screen = pygame.display.set_mode(size)
 
 # Background Color
 screen.fill(black)
 
 # Outer Border
-pygame.draw.rect(screen, tron_regular, (0,0,479,319),8)
-pygame.draw.rect(screen, tron_light, (2,2,479-4,319-4),2)
+pygame.draw.rect(screen, tron_regular, (0,0,319,239),8)
+pygame.draw.rect(screen, tron_light, (2,2,319-4,239-4),2)
 
 pi_hostname = run_cmd("hostname")
 pi_hostname = "  " + pi_hostname[:-1]
 # Buttons and labels
 # First Row Label
-make_label(pi_hostname, 32, 30, 48, tron_inverse)
+make_label(pi_hostname, 32, 15, 24, tron_inverse)
 # Second Row buttons 3 and 4
-make_button("    X on TFT", 30, 105, 55, 210, tron_light)
-make_button("   X on HDMI", 260, 105, 55, 210, tron_light)
+make_button("X-TFT", 20, 65, 45, 145, tron_light)
+make_button("X-HDMI", 175, 65, 45, 145, tron_light)
 # Third Row buttons 5 and 6
-make_button("    Terminal", 30, 180, 55, 210, tron_light)
-make_button("        hTop", 260, 180, 55, 210, tron_light)
+make_button("Terminal", 20, 120, 45, 145, tron_light)
+make_button("hTop", 175, 120, 45, 145, tron_light)
 # Fourth Row Buttons
-make_button("   Screen Off", 30, 255, 55, 210, tron_light)
-make_button("          >>>", 260, 255, 55, 210, tron_light)
+make_button("TFT Off", 20, 175, 45, 145, tron_light)
+make_button(">>>", 175, 175, 45, 145, tron_light)
 
 
 #While loop to manage touch screen inputs
