@@ -16,6 +16,7 @@ I came accross [garthvh's project featured on Adafruit](https://blog.adafruit.co
 
     git clone https://github.com/re4son/pitftmenu
     cd pitftmenu
+    For 2.8" screens: git checkout 2.8
     customise the file "menu" to match the path
     cusomise the scripts to suit your needs
     
