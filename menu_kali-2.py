@@ -18,7 +18,7 @@ def make_button(text, xpo, ypo, height, width, colour):
     pygame.draw.rect(screen, tron_regular, (xpo-8,ypo-8,width-2,height-2),1)
     font=pygame.font.Font(None,30)
     label=font.render(str(text), 1, (colour))
-    screen.blit(label,(xpo,ypo))
+    screen.blit(label,(xpo,ypo+6))
 
 # define function for printing text in a specific place with a specific colour
 def make_label(text, xpo, ypo, fontsize, colour):
@@ -32,22 +32,22 @@ def on_touch():
     touch_pos = (pygame.mouse.get_pos() [0], pygame.mouse.get_pos() [1])
     #  x_min                 x_max   y_min                y_max
     # button 1 event
-    if 20 <= touch_pos[0] <= 150 and 65 <= touch_pos[1] <=110:
+    if 21 <= touch_pos[0] <= 166 and 65 <= touch_pos[1] <=109:
             button(1)
     # button 2 event
-    if 170 <= touch_pos[0] <= 300 and 65 <= touch_pos[1] <=110:
+    if 174 <= touch_pos[0] <= 319 and 65 <= touch_pos[1] <=109:
             button(2)
     # button 3 event
-    if 20 <= touch_pos[0] <= 150 and 115 <= touch_pos[1] <=160:
+    if 21 <= touch_pos[0] <= 166 and 125 <= touch_pos[1] <=179:
             button(3)
     # button 4 event
-    if 170 <= touch_pos[0] <= 300 and 115 <= touch_pos[1] <=160:
+    if 174 <= touch_pos[0] <= 319 and 125 <= touch_pos[1] <=179:
             button(4)
     # button 5 event
-    if 20 <= touch_pos[0] <= 150 and 165 <= touch_pos[1] <=210:
+    if 21 <= touch_pos[0] <= 166 and 185 <= touch_pos[1] <=239:
             button(5)
     # button 6 event
-    if 170 <= touch_pos[0] <= 300 and 165 <= touch_pos[1] <=210:
+    if 174 <= touch_pos[0] <= 319 and 185 <= touch_pos[1] <=239:
             button(6)
 
 # Get Your External IP Address
@@ -176,16 +176,16 @@ pygame.draw.rect(screen, tron_light, (2,2,319-4,239-4),2)
 
 # Buttons and labels
 # First Row Label
-make_label(get_ip(), 32, 15, 24, tron_inverse)
+make_label(get_ip(), 32, 15, 42, tron_inverse)
 # Second Row buttons 1 and 2
-make_button("Kismet", 20, 65, 45, 145, tron_light)
-make_button("SDR-Scan", 175, 65, 45, 145, tron_light)
+make_button("    Kismet", 21, 65, 54, 145, tron_light)
+make_button("   SDR-Scan", 174, 65, 54, 145, tron_light)
 # Third Row buttons 3 and 4
-make_button("Shutdown", 20, 120, 45, 145, tron_light)
-make_button("Reboot", 175, 120, 45, 145, tron_light)
+make_button("  Shutdown", 21, 125, 54, 145, tron_light)
+make_button("     Reboot", 174, 125, 54, 145, tron_light)
 # Fourth Row Buttons
-make_button("<<<", 20, 175, 45, 145, tron_light)
-make_button(">>>", 175, 175, 45, 145, tron_light)
+make_button("        <<<", 21, 185, 54, 145, tron_light)
+make_button("        >>>", 174, 185, 54, 145, tron_light)
 
 
 #While loop to manage touch screen inputs
