@@ -146,8 +146,10 @@ def button(number):
     if number == 4:
         # msfconsole
         pygame.quit()
+        process = subprocess.call("setterm -term linux -back default -fore white -clear all", shell=True)
         call("/usr/bin/msfconsole", shell=True)
-	os.execv(__file__, sys.argv)
+        process = subprocess.call("setterm -term linux -back default -fore black -clear all", shell=True)
+        os.execv(__file__, sys.argv)
 
     if number == 5:
         # Previous page

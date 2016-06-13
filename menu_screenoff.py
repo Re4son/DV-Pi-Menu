@@ -6,6 +6,8 @@ from subprocess import *
 os.environ["SDL_FBDEV"] = "/dev/fb1"
 os.environ["SDL_MOUSEDEV"] = "/dev/input/touchscreen"
 os.environ["SDL_MOUSEDRV"] = "TSLIB"
+launch_bg=os.environ["MENUDIR"] + "launch-bg.sh"
+process = subprocess.call(launch_bg, shell=True)
 
 # Initialize pygame modules individually (to avoid ALSA errors) and hide mouse
 pygame.font.init()
@@ -28,7 +30,6 @@ def screen_on():
 	backlight = GPIO.PWM(18, 1023)
 	backlight.start(100)
 	GPIO.cleanup()
-        process = subprocess.call("setterm -term linux -back default -fore white -clear all", shell=True)
         page=os.environ["MENUDIR"] + "menu_kali-1.py"
         os.execvp("python", ["python", page])
 

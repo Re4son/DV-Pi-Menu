@@ -5,6 +5,8 @@ from subprocess import *
 os.environ["SDL_FBDEV"] = "/dev/fb1"
 os.environ["SDL_MOUSEDEV"] = "/dev/input/touchscreen"
 os.environ["SDL_MOUSEDRV"] = "TSLIB"
+launch_bg=os.environ["MENUDIR"] + "launch-bg.sh"
+process = subprocess.call(launch_bg, shell=True)
 
 # Initialize pygame modules individually (to avoid ALSA errors) and hide mouse
 pygame.font.init()
@@ -79,13 +81,14 @@ def button(number):
 
     if number == 3:
         # exit
+        process = subprocess.call("setterm -term linux -back default -fore white -clear all", shell=True)
         pygame.quit()
         sys.exit()
 
     if number == 4:
         # htop
         pygame.quit()
-	process = subprocess.call("/usr/bin/htop", shell=True)
+        process = subprocess.call("/usr/bin/htop", shell=True)
         os.execv(__file__, sys.argv)
 
     if number == 5:
