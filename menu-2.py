@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import sys, os, pygame, subprocess, commands, time, socket
+import sys, os, subprocess, time, pygame, socket
 from pygame.locals import *
 from subprocess import *
 os.environ["SDL_FBDEV"] = "/dev/fb1"
@@ -41,14 +41,15 @@ def on_touch():
     if 21 <= touch_pos[0] <= 166 and 125 <= touch_pos[1] <=179:
             button(3)
     # button 4 event
-    if 174 <= touch_pos[0] <= 319 and 125 <= touch_pos[1] <=179:
-            button(4)
+    ## if 174 <= touch_pos[0] <= 319 and 125 <= touch_pos[1] <=179:
+    ##        button(4)
     # button 5 event
     if 21 <= touch_pos[0] <= 166 and 185 <= touch_pos[1] <=239:
             button(5)
     # button 6 event
     if 174 <= touch_pos[0] <= 319 and 185 <= touch_pos[1] <=239:
             button(6)
+
 # Get Your External IP Address
 def get_ip():
     ip_msg = "Not connected"
@@ -75,86 +76,49 @@ def shutdown():
     output = process.communicate()[0]
     return output
 
-def get_date():
-    d = time.strftime("%a, %d %b %Y  %H:%M:%S", time.localtime())
-    return d
+def get_temp():
+    command = "vcgencmd measure_temp"
+    process = Popen(command.split(), stdout=PIPE)
+    output = process.communicate()[0]
+    return output
 
 def run_cmd(cmd):
     process = Popen(cmd.split(), stdout=PIPE)
     output = process.communicate()[0]
     return output
 
-def check_service(srvc):
-    try:
-        check = "/usr/sbin/service " + srvc + " status"
-	status = run_cmd(check)
-        if ("is running" in status) or ("active (running)") in status:
-            return True
-        else:
-            return False
-    except:
-        return False
-
-def toggle_service(srvc):
-    check = "/usr/sbin/service " + srvc + " status"
-    start = "/usr/sbin/service " + srvc + " start"
-    stop = "/usr/sbin/service " + srvc + " stop"
-    status = run_cmd(check)
-    if ("is running" in status) or ("active (running)") in status:
-        run_cmd(stop)
-        return False
-    else:
-	run_cmd(start)
-        return True
-
-def check_vnc():
-    if 'vnc :1' in commands.getoutput('/bin/ps -ef'):
-        return True
-    else:
-        return False
-
 # Define each button press action
 def button(number):
     if number == 1:
-        # Apache
-	if toggle_service("apache2"):
-	    make_button("WWW Server", 21, 65, 54, 145, green)
-	else:
-	    make_button("WWW Server", 21, 65, 54, 145, tron_light)
-	return
+        # shutdown
+         pygame.quit()
+         shutdown()
+         sys.exit()
 
     if number == 2:
-        # Pure-ftpd
-	if toggle_service("pure-ftpd"):
-	    make_button("  FTP Server", 174, 65, 54, 145, green)
-	else:
-	    make_button("  FTP Server", 174, 65, 54, 145, tron_light)
-	return
+        # reboot
+         screen.fill(black)
+         font=pygame.font.Font(None,72)
+         label=font.render("Rebooting. .", 1, (white))
+         screen.blit(label,(40,120))
+         pygame.display.flip()
+         pygame.quit()
+         restart()
+         sys.exit()
 
     if number == 3:
-        # VNC Server
-        if check_vnc():
-##            run_cmd("/usr/bin/sudo -u pi /usr/bin/vncserver -kill :1")
-            run_cmd("/usr/bin/vncserver -kill :1")
-            make_button(" VNC-Server",  21, 125, 54, 145, tron_light)
-        else:
-##            run_cmd("/usr/bin/sudo -u pi /usr/bin/vncserver :1")
-            run_cmd("/usr/bin/vncserver :1")
-            make_button(" VNC-Server",  21, 125, 54, 145, green)
-        return
+        # htop
+        pygame.quit()
+        process = subprocess.call("/usr/bin/htop", shell=True)
+        os.execv(__file__, sys.argv)
 
     if number == 4:
-        # msfconsole
-        pygame.quit()
-        process = subprocess.call("setterm -term linux -back default -fore white -clear all", shell=True)
-        call("/usr/bin/msfconsole", shell=True)
-        process = subprocess.call("setterm -term linux -back default -fore black -clear all", shell=True)
-        os.execv(__file__, sys.argv)
+        # Blank
 
     if number == 5:
         # Previous page
         pygame.quit()
-        page=os.environ["MENUDIR"] + "menu_kali-2.py"
+        page=os.environ["MENUDIR"] + "menu-1.py"
         os.execvp("python", ["python", page])
         sys.exit()
 
@@ -162,7 +126,7 @@ def button(number):
     if number == 6:
         # Next page
         pygame.quit()
-        page=os.environ["MENUDIR"] + "menu_kali-4.py"
+        page=os.environ["MENUDIR"] + "menu-9.py"
         os.execvp("python", ["python", page])
         sys.exit()
 
@@ -184,14 +148,14 @@ orange   = (255, 127,   0)
 tron_ora = (255, 202,   0)
 
 # Tron theme orange
-tron_regular = tron_ora
-tron_light = tron_yel
-tron_inverse = tron_whi
+## tron_regular = tron_ora
+## tron_light = tron_yel
+## tron_inverse = tron_whi
 
 # Tron theme blue
-##tron_regular = tron_blu
-##tron_light = tron_whi
-##tron_inverse = tron_yel
+tron_regular = tron_blu
+tron_light = tron_whi
+tron_inverse = tron_yel
 
 # Set up the base menu you can customize your menu with the colors above
 
@@ -208,22 +172,13 @@ pygame.draw.rect(screen, tron_light, (2,2,319-4,239-4),2)
 
 # Buttons and labels
 # First Row Label
-make_label(get_date(), 17, 15, 34, tron_inverse)
+make_label(get_ip(), 32, 15, 42, tron_inverse)
 # Second Row buttons 1 and 2
-if check_service("apache2"):
-     make_button("WWW Server", 21, 65, 54, 145, green)
-else:
-     make_button("WWW Server", 21, 65, 54, 145, tron_light)
-if check_service("pure-ftpd"):
-    make_button("  FTP Server", 174, 65, 54, 145, green)
-else:
-    make_button("  FTP Server", 174, 65, 54, 145, tron_light)
+make_button("  Shutdown", 21, 65, 54, 145, tron_light)
+make_button("     Reboot", 174, 65, 54, 145, tron_light)
 # Third Row buttons 3 and 4
-if check_vnc():
-    make_button(" VNC-Server",  21, 125, 54, 145, green)
-else:
-    make_button(" VNC-Server", 21, 125, 54, 145, tron_light)
-make_button("   Metasploit ", 174, 125, 54, 145, tron_light)
+make_button("       hTop", 21, 125, 54, 145, tron_light)
+make_button("", 174, 125, 54, 145, tron_light)
 # Fourth Row Buttons
 make_button("        <<<", 21, 185, 54, 145, tron_light)
 make_button("        >>>", 174, 185, 54, 145, tron_light)

@@ -1,6 +1,0 @@
-Big thanks to JPearn for adjusting the Sticky Finger's Kali-Pi menu to fit a 2.8" screen.
-
-We very much appreciate his help.
-
-Many thanks,
-Re4son

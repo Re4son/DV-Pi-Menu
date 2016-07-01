@@ -30,7 +30,7 @@ def screen_on():
 	backlight = GPIO.PWM(18, 1023)
 	backlight.start(100)
 	GPIO.cleanup()
-        page=os.environ["MENUDIR"] + "menu_kali-1.py"
+        page=os.environ["MENUDIR"] + "menu-1.py"
         os.execvp("python", ["python", page])
 
 
