@@ -59,6 +59,18 @@ def run_cmd(cmd):
     output = process.communicate()[0]
     return output
 
+def check_service(srvc):
+    try:
+        check = "/usr/sbin/service " + srvc + " status"
+	status = run_cmd(check)
+        if ("is running" in status) or ("active (running)") in status:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+
 def toggle_dv_pi(srvc):
     check = "/usr/sbin/service " + srvc + " status"
     start = "/usr/sbin/service " + srvc + " start"
@@ -101,11 +113,11 @@ def button(number):
         sys.exit()
 
     if number == 4:
-        # Apache
+        # DV-Pi Applications
 	if toggle_dv_pi("apache2"):
-	    make_button("     DV-Pi", 21, 125, 54, 145, green)
+	    make_button("     DV-Pi", 174, 125, 54, 145, green)
 	else:
-	    make_button("     DV-Pi", 21, 125, 54, 145, tron_light)
+	    make_button("     DV-Pi", 174, 125, 54, 145, tron_light)
 	return
 
     if number == 5:
@@ -175,9 +187,9 @@ make_button("    X-HDMI", 174, 65, 54, 145, tron_light)
 # Third Row buttons 3 and 4
 make_button("   Terminal", 21, 125, 54, 145, tron_light)
 if check_service("apache2"):
-     make_button("     DV-Pi", 21, 125, 54, 145, green)
+     make_button("     DV-Pi", 174, 125, 54, 145, green)
 else:
-     make_button("     DV-Pi", 21, 125, 54, 145, tron_light)
+     make_button("     DV-Pi", 174, 125, 54, 145, tron_light)
 # Fourth Row Buttons
 make_button("     TFT Off", 21, 185, 54, 145, tron_light)
 make_button("         >>>", 174, 185, 54, 145, tron_light)

@@ -112,7 +112,7 @@ def button(number):
         process = subprocess.call("/usr/bin/htop", shell=True)
         os.execv(__file__, sys.argv)
 
-    if number == 4:
+#    if number == 4:
         # Blank
 
     if number == 5:
