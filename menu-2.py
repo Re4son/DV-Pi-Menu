@@ -41,8 +41,8 @@ def on_touch():
     if 21 <= touch_pos[0] <= 166 and 125 <= touch_pos[1] <=179:
             button(3)
     # button 4 event
-    ## if 174 <= touch_pos[0] <= 319 and 125 <= touch_pos[1] <=179:
-    ##        button(4)
+    if 174 <= touch_pos[0] <= 319 and 125 <= touch_pos[1] <=179:
+           button(4)
     # button 5 event
     if 21 <= touch_pos[0] <= 166 and 185 <= touch_pos[1] <=239:
             button(5)
@@ -76,12 +76,6 @@ def shutdown():
     output = process.communicate()[0]
     return output
 
-def get_temp():
-    command = "vcgencmd measure_temp"
-    process = Popen(command.split(), stdout=PIPE)
-    output = process.communicate()[0]
-    return output
-
 def run_cmd(cmd):
     process = Popen(cmd.split(), stdout=PIPE)
     output = process.communicate()[0]
@@ -90,12 +84,25 @@ def run_cmd(cmd):
 # Define each button press action
 def button(number):
     if number == 1:
+        # htop
+        pygame.quit()
+        process = subprocess.call("/usr/bin/htop", shell=True)
+        os.execv(__file__, sys.argv)
+
+    if number == 2:
+        # Logout
+        # add "logout" after calling "menu" in .profile
+        process = subprocess.call("setterm -term linux -back default -fore white -clear all", shell=True)
+        pygame.quit()
+        sys.exit()
+
+    if number == 3:
         # shutdown
          pygame.quit()
          shutdown()
          sys.exit()
 
-    if number == 2:
+    if number == 4:
         # reboot
          screen.fill(black)
          font=pygame.font.Font(None,72)
@@ -106,14 +113,6 @@ def button(number):
          restart()
          sys.exit()
 
-    if number == 3:
-        # htop
-        pygame.quit()
-        process = subprocess.call("/usr/bin/htop", shell=True)
-        os.execv(__file__, sys.argv)
-
-#    if number == 4:
-        # Blank
 
     if number == 5:
         # Previous page
@@ -174,11 +173,11 @@ pygame.draw.rect(screen, tron_light, (2,2,319-4,239-4),2)
 # First Row Label
 make_label(get_ip(), 32, 15, 42, tron_inverse)
 # Second Row buttons 1 and 2
-make_button("  Shutdown", 21, 65, 54, 145, tron_light)
-make_button("     Reboot", 174, 65, 54, 145, tron_light)
+make_button("       hTop", 21, 65, 54, 145, tron_light)
+make_button("    Logout", 174, 65, 54, 145, tron_light)
 # Third Row buttons 3 and 4
-make_button("       hTop", 21, 125, 54, 145, tron_light)
-make_button("", 174, 125, 54, 145, tron_light)
+make_button("  Shutdown", 21, 125, 54, 145, tron_light)
+make_button("     Reboot", 174, 125, 54, 145, tron_light)
 # Fourth Row Buttons
 make_button("        <<<", 21, 185, 54, 145, tron_light)
 make_button("        >>>", 174, 185, 54, 145, tron_light)

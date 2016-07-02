@@ -23,6 +23,14 @@ def make_button(text, xpo, ypo, height, width, colour):
     label=font.render(str(text), 1, (colour))
     screen.blit(label,(xpo,ypo+6))
 
+def make_enabled_button(text, xpo, ypo, height, width, colour):
+    pygame.draw.rect(screen, (colour), (xpo-10,ypo-10,width,height),3)
+    pygame.draw.rect(screen, (colour), (xpo-9,ypo-9,width-1,height-1),1)
+    pygame.draw.rect(screen, (colour), (xpo-8,ypo-8,width-2,height-2),1)
+    font=pygame.font.Font(None,30)
+    label=font.render(str(text), 1, (colour))
+    screen.blit(label,(xpo,ypo+6))
+
 
 # define function for printing text in a specific place with a specific colour
 def make_label(text, xpo, ypo, fontsize, colour):
@@ -110,12 +118,13 @@ def button(number):
         # exit
         process = subprocess.call("setterm -term linux -back default -fore white -clear all", shell=True)
         pygame.quit()
-        sys.exit()
+        run_cmd("/usr/bin/sudo -u pi screen -RR")
+        os.execv(__file__, sys.argv)
 
     if number == 4:
         # DV-Pi Applications
 	if toggle_dv_pi("apache2"):
-	    make_button("     DV-Pi", 174, 125, 54, 145, green)
+	    make_enabled_button("     DV-Pi", 174, 125, 54, 145, red)
 	else:
 	    make_button("     DV-Pi", 174, 125, 54, 145, tron_light)
 	return
@@ -187,7 +196,7 @@ make_button("    X-HDMI", 174, 65, 54, 145, tron_light)
 # Third Row buttons 3 and 4
 make_button("   Terminal", 21, 125, 54, 145, tron_light)
 if check_service("apache2"):
-     make_button("     DV-Pi", 174, 125, 54, 145, green)
+     make_enabled_button("     DV-Pi", 174, 125, 54, 145, red)
 else:
      make_button("     DV-Pi", 174, 125, 54, 145, tron_light)
 # Fourth Row Buttons

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+ARGS=${1^^}
+
+if [ -z "$1" ]; then
+    echo "Missing argument"
+    echo "Usage: $0 [Start:Stop:Status]
+    exit 0
+fi
+
+if [ $ARGS == "START" ]; then
+    echo "start"
+elif [ $ARGS == "STOP" ]; then
+    echo "stop"
+elif [ $ARGS == "STATUS" ]; then
+    echo "status"
+else
+    echo "Missing argument"
+    echo "Usage: $0 [Start:Stop:Status]
+
+fi
+
+exit 1
