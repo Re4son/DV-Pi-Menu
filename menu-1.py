@@ -44,22 +44,22 @@ def on_touch():
     touch_pos = (pygame.mouse.get_pos() [0], pygame.mouse.get_pos() [1])
     #  x_min                 x_max   y_min                y_max
     # button 1 event
-    if 21 <= touch_pos[0] <= 166 and 65 <= touch_pos[1] <=109:
+    if 30 <= touch_pos[0] <= 240 and 105 <= touch_pos[1] <=160:
             button(1)
     # button 2 event
-    if 174 <= touch_pos[0] <= 319 and 65 <= touch_pos[1] <=109:
+    if 260 <= touch_pos[0] <= 470 and 105 <= touch_pos[1] <=160:
             button(2)
     # button 3 event
-    if 21 <= touch_pos[0] <= 166 and 125 <= touch_pos[1] <=179:
+    if 30 <= touch_pos[0] <= 240 and 180 <= touch_pos[1] <=235:
             button(3)
     # button 4 event
-    if 174 <= touch_pos[0] <= 319 and 125 <= touch_pos[1] <=179:
+    if 260 <= touch_pos[0] <= 470 and 180 <= touch_pos[1] <=235:
             button(4)
     # button 5 event
-    if 21 <= touch_pos[0] <= 166 and 185 <= touch_pos[1] <=239:
+    if 30 <= touch_pos[0] <= 240 and 255 <= touch_pos[1] <=310:
             button(5)
     # button 6 event
-    if 174 <= touch_pos[0] <= 319 and 185 <= touch_pos[1] <=239:
+    if 260 <= touch_pos[0] <= 470 and 255 <= touch_pos[1] <=310:
             button(6)
 
 def run_cmd(cmd):
@@ -124,9 +124,9 @@ def button(number):
     if number == 4:
         # DV-Pi Applications
 	if toggle_dv_pi("apache2"):
-	    make_enabled_button("     DV-Pi", 174, 125, 54, 145, red)
+	    make_enabled_button("     DV-Pi", 260, 180, 55, 210, red)
 	else:
-	    make_button("     DV-Pi", 174, 125, 54, 145, tron_light)
+	    make_button("     DV-Pi", 260, 180, 55, 210, tron_light)
 	return
 
     if number == 5:
@@ -175,33 +175,33 @@ tron_inverse = tron_whi
 # Set up the base menu you can customize your menu with the colors above
 
 #set size of the screen
-size = width, height = 320, 240
+size = width, height = 480, 320
 screen = pygame.display.set_mode(size)
 
 # Background Color
 screen.fill(black)
 
 # Outer Border
-pygame.draw.rect(screen, tron_regular, (0,0,319,239),8)
-pygame.draw.rect(screen, tron_light, (2,2,319-4,239-4),2)
+pygame.draw.rect(screen, tron_regular, (0,0,479,319),8)
+pygame.draw.rect(screen, tron_light, (2,2,479-4,319-4),2)
 
 pi_hostname = run_cmd("hostname")
 pi_hostname = "  " + pi_hostname[:-1]
 # Buttons and labels
 # First Row Label
-make_label(pi_hostname, 32, 15, 42, tron_inverse)
+make_label(pi_hostname, 32, 30, 48, tron_inverse)
 # Second Row buttons 1 and 2
-make_button("      X-TFT", 21, 65, 54, 145, tron_light)
-make_button("    X-HDMI", 174, 65, 54, 145, tron_light)
+make_button("      X-TFT", 30, 105, 55, 210, tron_light)
+make_button("    X-HDMI", 260, 105, 55, 210, tron_light)
 # Third Row buttons 3 and 4
-make_button("   Terminal", 21, 125, 54, 145, tron_light)
+make_button("   Terminal", 30, 180, 55, 210, tron_light)
 if check_service("apache2"):
-     make_enabled_button("     DV-Pi", 174, 125, 54, 145, red)
+     make_enabled_button("     DV-Pi", 260, 180, 55, 210, red)
 else:
-     make_button("     DV-Pi", 174, 125, 54, 145, tron_light)
+     make_button("     DV-Pi", 260, 180, 55, 210, tron_light)
 # Fourth Row Buttons
-make_button("     TFT Off", 21, 185, 54, 145, tron_light)
-make_button("         >>>", 174, 185, 54, 145, tron_light)
+make_button("     TFT Off", 30, 255, 55, 210, tron_light)
+make_button("         >>>", 260, 255, 55, 210, tron_light)
 
 
 #While loop to manage touch screen inputs
