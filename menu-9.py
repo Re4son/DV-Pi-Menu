@@ -16,9 +16,9 @@ def make_button(text, xpo, ypo, height, width, colour):
     pygame.draw.rect(screen, tron_regular, (xpo-10,ypo-10,width,height),3)
     pygame.draw.rect(screen, tron_light, (xpo-9,ypo-9,width-1,height-1),1)
     pygame.draw.rect(screen, tron_regular, (xpo-8,ypo-8,width-2,height-2),1)
-    font=pygame.font.Font(None,30)
+    font=pygame.font.Font(None,42)
     label=font.render(str(text), 1, (colour))
-    screen.blit(label,(xpo,ypo+6))
+    screen.blit(label,(xpo,ypo))
 
 
 # define function for printing text in a specific place with a specific colour
@@ -32,12 +32,25 @@ def on_touch():
     # get the position that was touched
     touch_pos = (pygame.mouse.get_pos() [0], pygame.mouse.get_pos() [1])
     #  x_min                 x_max   y_min                y_max
+    # button 1 event
+##    if 30 <= touch_pos[0] <= 240 and 105 <= touch_pos[1] <=160:
+##            button(1)
+    # button 2 event
+##    if 260 <= touch_pos[0] <= 470 and 105 <= touch_pos[1] <=160:
+##           button(2)
+    # button 3 event
+##    if 30 <= touch_pos[0] <= 240 and 180 <= touch_pos[1] <=235:
+##            button(3)
+    # button 4 event
+##    if 260 <= touch_pos[0] <= 470 and 180 <= touch_pos[1] <=235:
+##            button(4)
     # button 5 event
-    if 21 <= touch_pos[0] <= 166 and 185 <= touch_pos[1] <=239:
+    if 30 <= touch_pos[0] <= 240 and 255 <= touch_pos[1] <=310:
             button(5)
     # button 6 event
-    if 174 <= touch_pos[0] <= 319 and 185 <= touch_pos[1] <=239:
+    if 260 <= touch_pos[0] <= 470 and 255 <= touch_pos[1] <=310:
             button(6)
+
 # Get time and date
 
 def get_temp():
@@ -73,7 +86,7 @@ def button(number):
     if number == 5:
         # Previous page
         pygame.quit()
-        page=os.environ["MENUDIR"] + "menu-2.py"
+        page=os.environ["MENUDIR"] + "menu_kali-4.py"
         os.execvp("python", ["python", page])
         sys.exit()
 
@@ -111,31 +124,31 @@ tron_inverse = tron_whi
 # Set up the base menu you can customize your menu with the colors above
 
 #set size of the screen
-size = width, height = 320, 240
+size = width, height = 480, 320
 screen = pygame.display.set_mode(size)
 
 # Background Color
 screen.fill(black)
 
 # Outer Border
-pygame.draw.rect(screen, tron_regular, (0,0,319,239),8)
-pygame.draw.rect(screen, tron_light, (2,2,319-4,239-4),2)
+pygame.draw.rect(screen, tron_regular, (0,0,479,319),8)
+pygame.draw.rect(screen, tron_light, (2,2,479-4,319-4),2)
 
 # Buttons and labels
 # First Row Label
-make_label(get_temp(), 32, 20, 32, tron_inverse)
+make_label(get_temp(), 32, 30, 48, tron_inverse)
 
 # Second Row buttons 1 and 2
-make_label(get_clock(), 32, 65, 32, tron_inverse)
+make_label(get_clock(), 32, 105, 48, tron_inverse)
 ## make_button("     Kismet", 30, 105, 55, 210, tron_light)
 ## make_button(" SDR-Scanner", 260, 105, 55, 210, tron_light)
 # Third Row buttons 3 and 4
-make_label(get_volts(), 32, 110, 32, tron_inverse)
+make_label(get_volts(), 32, 180, 48, tron_inverse)
 ## make_button("   Shutdown", 30, 180, 55, 210, tron_light)
 ## make_button("      Reboot", 260, 180, 55, 210, tron_light)
 # Fourth Row Buttons
-make_button("        <<<", 21, 185, 54, 145, tron_light)
-make_button("    Refresh", 174, 185, 54, 145, tron_light)
+make_button("         <<<", 30, 255, 55, 210, tron_light)
+make_button("     Refresh", 260, 255, 55, 210, tron_light)
 
 
 #While loop to manage touch screen inputs
