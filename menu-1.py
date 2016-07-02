@@ -196,7 +196,7 @@ make_button("   X on HDMI", 260, 105, 55, 210, tron_light)
 # Third Row buttons 3 and 4
 make_button("    Terminal", 30, 180, 55, 210, tron_light)
 if check_service("apache2"):
-     make_enabled_button("     DV-Pi", 260, 180, 55, 210, red)
+     make_enabled_button("       DV-Pi", 260, 180, 55, 210, red)
 else:
      make_button("       DV-Pi", 260, 180, 55, 210, tron_light)
 # Fourth Row Buttons
