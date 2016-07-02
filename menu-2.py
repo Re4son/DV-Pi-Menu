@@ -174,7 +174,7 @@ pygame.draw.rect(screen, tron_light, (2,2,479-4,319-4),2)
 make_label(get_ip(), 32, 30, 48, tron_inverse)
 # Second Row buttons 1 and 2
 make_button("        hTop", 30, 105, 55, 210, tron_light)
-make_button("     Logout", 260, 105, 55, 210, tron_light)
+make_button("      Logout", 260, 105, 55, 210, tron_light)
 # Third Row buttons 3 and 4
 make_button("   Shutdown", 30, 180, 55, 210, tron_light)
 make_button("      Reboot", 260, 180, 55, 210, tron_light)

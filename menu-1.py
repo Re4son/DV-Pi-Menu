@@ -124,9 +124,9 @@ def button(number):
     if number == 4:
         # DV-Pi Applications
 	if toggle_dv_pi("apache2"):
-	    make_enabled_button("     DV-Pi", 260, 180, 55, 210, red)
+	    make_enabled_button("       DV-Pi", 260, 180, 55, 210, red)
 	else:
-	    make_button("     DV-Pi", 260, 180, 55, 210, tron_light)
+	    make_button("       DV-Pi", 260, 180, 55, 210, tron_light)
 	return
 
     if number == 5:
@@ -198,7 +198,7 @@ make_button("    Terminal", 30, 180, 55, 210, tron_light)
 if check_service("apache2"):
      make_enabled_button("     DV-Pi", 260, 180, 55, 210, red)
 else:
-     make_button("     DV-Pi", 260, 180, 55, 210, tron_light)
+     make_button("       DV-Pi", 260, 180, 55, 210, tron_light)
 # Fourth Row Buttons
 make_button("   Screen Off", 30, 255, 55, 210, tron_light)
 make_button("          >>>", 260, 255, 55, 210, tron_light)
