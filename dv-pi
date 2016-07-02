@@ -1,23 +1,100 @@
 #!/bin/bash
+############################################################
+############################################################
+##                                                        ##
+##           Sticky Finger's Damn Vulnerable Pi           ##
+##                                                        ##
+##  Program to stop / start vulnerable applications       ##
+##                                                        ##
+##  Usage: dv-pi [ Start | Stop | Status ]                ##
+##                                                        ##
+##  TODO:                                                 ##
+##       ln -s /home/pi/DV-Pi-Menu/dv-pi /usr/bin/dv-pi   ##
+##                                                        ##
+############################################################
+############################################################
 
 ARGS=${1^^}
 
+
+group=RE4SON
+function info() {
+    system="$1"
+    group="${system}"
+    shift
+    FG="1;32m"
+    BG="40m"
+    echo -e "[\033[${FG}\033[${BG}${system}\033[0m] $*"
+}
+
+function warning() {
+    system="$1"
+    group="${system}"
+    shift
+    FG="1;31m"
+    BG="40m"
+    echo -e "[\033[${FG}\033[${BG}${group}\033[0m] $*"
+}
+
+
 if [ -z "$1" ]; then
-    echo "Missing argument"
-    echo "Usage: $0 [Start:Stop:Status]
+    echo
+    warning " WARNING " "Missing argument"
+    info "  Info   " "Usage: $0 [Start:Stop:Status]"
+    echo
     exit 0
 fi
 
 if [ $ARGS == "START" ]; then
-    echo "start"
-elif [ $ARGS == "STOP" ]; then
-    echo "stop"
-elif [ $ARGS == "STATUS" ]; then
-    echo "status"
-else
-    echo "Missing argument"
-    echo "Usage: $0 [Start:Stop:Status]
+    echo
+    info " STATUS  " "Starting DV-Pi"
+    sudo /usr/sbin/service mysql start
+    sudo /usr/sbin/service apache2 start
+    status=`/usr/sbin/service apache2 status | grep running`
+    if  [[ $status == *"running"* ]]; then
+        info " STATUS  " "DV-Pi started successfully"
+        echo
+        warning " WARNING " "THE SYSTEM IS VULNERABLE!"
+    else
+        info " WARNING " "Failed to start DV-Pi"
+    fi
+    echo
 
+elif [ $ARGS == "STOP" ]; then
+    echo
+    info " STATUS  " "Stopping DV-Pi"
+    sudo /usr/sbin/service mysql stop
+    sudo /usr/sbin/service apache2 stop
+    status=`/usr/sbin/service apache2 status | grep running`
+    if  [[ $status != *"running"* ]]; then
+        info " STATUS  " "DV-Pi stopped successfully"
+        echo
+        info " STATUS " "The system is not vulnerable"
+    else
+        info " WARNING " "FAILED TO STOP DV-PI"
+        echo
+        warning " WARNING " "THE SYSTEM IS VULNERABLE!"
+    fi
+    echo
+
+elif [ $ARGS == "STATUS" ]; then
+    echo
+    status=`/usr/sbin/service apache2 status | grep running`
+    if  [[ $status == *"running"* ]]; then
+       info " STATUS  " "DV-Pi is running"
+       echo
+       warning " WARNING " "THE SYSTEM IS VULNERABLE!"
+    else
+        info " STATUS  " "DV-Pi is stopped"
+        echo
+        info " STATUS  " "The system is not vulnerable"
+    fi
+    echo
+else
+    echo
+    warning " WARNING " "Missing argument"
+    info "  Info   " "Usage: $0 [Start:Stop:Status]"
+    echo
 fi
 
 exit 1
