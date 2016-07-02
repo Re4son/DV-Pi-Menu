@@ -16,9 +16,9 @@ def make_button(text, xpo, ypo, height, width, colour):
     pygame.draw.rect(screen, tron_regular, (xpo-10,ypo-10,width,height),3)
     pygame.draw.rect(screen, tron_light, (xpo-9,ypo-9,width-1,height-1),1)
     pygame.draw.rect(screen, tron_regular, (xpo-8,ypo-8,width-2,height-2),1)
-    font=pygame.font.Font(None,30)
+    font=pygame.font.Font(None,42)
     label=font.render(str(text), 1, (colour))
-    screen.blit(label,(xpo,ypo+6))
+    screen.blit(label,(xpo,ypo))
 
 # define function for printing text in a specific place with a specific colour
 def make_label(text, xpo, ypo, fontsize, colour):
