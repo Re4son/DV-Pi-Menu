@@ -86,7 +86,7 @@ def button(number):
     if number == 5:
         # Previous page
         pygame.quit()
-        page=os.environ["MENUDIR"] + "menu_kali-2.py"
+        page=os.environ["MENUDIR"] + "menu-2.py"
         os.execvp("python", ["python", page])
         sys.exit()
 
