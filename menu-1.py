@@ -115,7 +115,7 @@ def button(number):
 
 
     if number == 3:
-        # exit
+        # terminal
         process = subprocess.call("setterm -term linux -back default -fore white -clear all", shell=True)
         pygame.quit()
         run_cmd("/usr/bin/sudo -u pi screen -RR")
