@@ -1,7 +1,9 @@
 #!/bin/bash
+
 ##########################################################################
 ##  Downgrade libsdl1.2 to version from Wheezy for pygame compatibility ##
 ##########################################################################
+
 
 #enable wheezy package sources
 echo "deb http://archive.raspbian.org/raspbian wheezy main
